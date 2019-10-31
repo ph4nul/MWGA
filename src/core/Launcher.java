@@ -9,7 +9,7 @@ public class Launcher {
 		int n0=10;	//初期エージェント数
 		int edge=10;	//エージェントあたりのエッヂ数
 		long startTime=System.currentTimeMillis();
-		Simulation.start(Seed._seeds[0],n,n0,edge);
+		Simulation.start(Seed._seeds[2],n,n0,edge);
 		long endTime = System.currentTimeMillis();
 		System.out.println("time：" + ((endTime - startTime)/1000) + " s");
 		System.out.println("MWGA_v2");

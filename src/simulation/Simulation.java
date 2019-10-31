@@ -32,34 +32,6 @@ public class Simulation {
 			}
 		}
 		
-		
-		/*System.out.println("--------------------");
-		
-		for(int i=0;i<n;i++) {
-			System.out.println("B="+agents[i].getAgentValueBV(0)+",V="+agents[i].getAgentValueBV(1)+",L="+agents[i].getAgentValueBL(1));
-		}
-		System.out.println("--------------------");*/
-		
-		/*for(int i=0;i<n;i++) {
-			System.out.print("Agent"+i+"_BV ");
-			for(int j=0;j<6;j++) {
-				System.out.print(agents[i].getBV(j));
-			}
-			System.out.println();
-		}
-		System.out.println("--------------------");*/
-		
-		/*for(int i=0;i<n;i++) {
-			System.out.print("Agent"+i+"_BL ");
-			for(int j=0;j<6;j++) {
-				System.out.print(agents[i].getBL(j));
-			}
-			System.out.println();
-		}
-		System.out.println("--------------------");*/
-		
-		//PrintInitialSstate.export(n,agents);
-		
 		BA ba=new BA(agents,agents_d,n,n0,edge,world,rnd);
 		ba.BAmodel();
 		
@@ -119,8 +91,21 @@ public class Simulation {
 					agents_d[k][j].resetScore();
 				}
 			}
-			
-			PrintGean.Export(agents, n, i);
+			//各エージェントの平均を出力するように書き換え
+			for(int j=0;j<n;j++) {
+				double tmpb=0.0;
+				double tmpl=0.0;
+				tmpb+=agents[j].getAgentValueBL(0)/7;
+				tmpl+=agents[j].getAgentValueBL(1)/7;
+				for(int w=0;w<world;w++) {
+					tmpb+=agents_d[w][j].getAgentValueBL(0)/7;
+					tmpl+=agents_d[w][j].getAgentValueBL(1)/7;
+				}
+				tmpb/=(world+1);
+				tmpl/=(world+1);
+				PrintGean.Export(tmpb,tmpl, n, i,j);
+			}
+			//PrintGean.Export(agents, n, i);
 			
 			if(i>=1500) {
 				for(int j=0;j<n;j++) {
@@ -142,6 +127,10 @@ public class Simulation {
 			System.out.println("finish step"+i);
 		}
 		PrintGean.ExportAverage(agents, n, sumB, sumL, times);
+		System.out.println("Finished 2000gen");
+		
+		
+		
 	}
 	
 }

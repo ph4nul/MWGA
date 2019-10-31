@@ -9,30 +9,31 @@ import agent.*;
 
 public class PrintGean {
 	
-	public static void Export(Agent[] agents,int n,int times) {
+	public static void Export(double B,double L,int n,int times,int Agent_num) {
 		try {
 			//出力先を作成する
-			FileWriter fw = new FileWriter("D:\\work\\lab\\gean\\gean-"+times+".csv", false);  //※１
+			FileWriter fw;
+			if(times==0) {
+				fw = new FileWriter("D:\\work\\lab\\gean\\gean-"+Agent_num+".csv", false);  //※１
+			}
+			else {
+				fw = new FileWriter("D:\\work\\lab\\gean\\gean-"+Agent_num+".csv", true);  //※１
+			}
+			
 			PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
         
-			//ヘッダー書き込み
-			pw.print("");
-			pw.print(",");
-			pw.print("B");
-			pw.print(",");
-			pw.print("L");
-			pw.println();
-        
-			
-			
-			for(int i=0;i<n;i++) {
-				pw.print(i);
+			if(times==0) {
+				pw.print("B");
 				pw.print(",");
-				pw.print(agents[i].getAgentValueBL(0)/7);
-				pw.print(",");
-				pw.print(agents[i].getAgentValueBL(1)/7);
+				pw.print("L");
 				pw.println();
 			}
+			
+			pw.print(B);
+			pw.print(",");
+			pw.print(L);
+			pw.println();
+
 
 			//ファイルに書き出す
 			pw.close();
